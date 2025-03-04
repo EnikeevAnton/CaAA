@@ -8,7 +8,7 @@ class SquareCutter:
     def __init__(self, N: int):
         """ Инициализация класса для разбиения квадрата """
         self.N = N
-        self.queue = deque()  # Стек для хранения состояний
+        self.queue = deque()  # очередь для хранения состояний
         self.occupied = 0  # Массив занятых ячеек в квадрате
         self.best_count = float('inf')  # Лучшее количество квадратов в решении
         self.best_solution = []  # Лучшее разбиение квадрата.
@@ -88,7 +88,7 @@ class SquareCutter:
         squares = []
 
         first_square = (self.N + 1) // 2
-        second_square = self.N - first_square # self.N - (self.N + 1) // 2
+        second_square = self.N - first_square 
 
         self.try_place(0, 0, first_square)
         squares.append((1, 1, first_square))
