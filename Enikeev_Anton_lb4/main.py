@@ -48,6 +48,8 @@ def kmp_search(pattern, text):
             q += 1
             if DEBUG:
                 print(f"i={i}: {ch} совпало, q-> {q}")
+        if DEBUG and q == 0:
+            print(f"i={i}: {pattern[q]}!={ch}, q={q}")
         if q == m:
             pos = i - m + 1
             result.append(pos)
@@ -68,7 +70,7 @@ def is_cyclic_shift(A, B):
     q = 0
     n = len(A)
     for i in range(2*n):
-        ch = B[i%n]
+        ch = B[i] if i < n else B[i-n]
         while q > 0 and A[q] != ch:
             if DEBUG:
                 print(f"i={i}: {A[q]}!={ch}, откат q->pi[{q-1}]={pi[q-1]}")
@@ -77,6 +79,9 @@ def is_cyclic_shift(A, B):
             q += 1
             if DEBUG:
                 print(f"i={i}: {ch} совпало, q-> {q}")
+        if DEBUG and q == 0:
+            print(f"i={i}: {A[q]}!={ch}, q={q}")
+
         if q == n:
             pos = i - n + 1
             if DEBUG:
@@ -85,9 +90,12 @@ def is_cyclic_shift(A, B):
     return -1
 
 if __name__ == "__main__":
+    key = int(input())
     A = input().strip()
     B = input().strip()
-    result = kmp_search(A, B)
-    #result = is_cyclic_shift(B, A)
-    #print(result)
-    print(','.join(map(str, result)))
+    if key == 1:
+        result = kmp_search(A, B)
+        print(','.join(map(str, result)))
+    else:
+        result = is_cyclic_shift(A, B)
+        print(result)
